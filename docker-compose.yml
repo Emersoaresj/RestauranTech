@@ -1,0 +1,30 @@
+version: latest
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-restaurantes
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: emerson01
+      POSTGRES_DB: restaurantesdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: restaurantes-gerenciamento
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/restaurantesdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: emerson01
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
