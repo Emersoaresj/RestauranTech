@@ -41,7 +41,7 @@ public class UsuarioService {
         }
 
         try {
-            UsuarioEntity entity = UsuarioMapper.INSTANCE.DtoToEntity(usuarioDTO);
+            UsuarioEntity entity = UsuarioMapper.INSTANCE.dtoToEntity(usuarioDTO);
             entity.setDataUltimaAlteracao(LocalDateTime.now());
             usuarioRepository.save(entity);
 
@@ -50,7 +50,7 @@ public class UsuarioService {
             return response;
         } catch (Exception e) {
             log.error("Erro ao cadastrar usuário", e);
-            throw new RuntimeException("Erro ao cadastrar usuário");
+            throw new RuntimeException("Erro ao cadastrar usuário"); //TODO - Criar exceção personalizada
         }
     }
 
@@ -76,7 +76,7 @@ public class UsuarioService {
         } catch (UsuarioNaoEncontradoException e) {
             throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao atualizar usuário");
+            throw new RuntimeException("Erro ao atualizar usuário"); //TODO - Criar exceção personalizada
         }
     }
 
@@ -102,7 +102,7 @@ public class UsuarioService {
         } catch (UsuarioNaoEncontradoException | SenhaIncorretaException e) {
             throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao alterar senha");
+            throw new RuntimeException("Erro ao alterar senha"); //TODO - Criar exceção personalizada
         }
     }
 
@@ -122,7 +122,7 @@ public class UsuarioService {
         } catch (UsuarioNaoEncontradoException | SenhaIncorretaException e) {
             throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao validar login");
+            throw new RuntimeException("Erro ao validar login"); //TODO - Criar exceção personalizada
         }
     }
 
@@ -139,7 +139,7 @@ public class UsuarioService {
         } catch (UsuarioNaoEncontradoException e) {
             throw e;
         } catch (Exception e){
-            throw new RuntimeException("Erro ao deletar usuário");
+            throw new RuntimeException("Erro ao deletar usuário"); //TODO - Criar exceção personalizada
         }
     }
 

@@ -41,7 +41,7 @@ public class UsuarioController {
 
     // Validar login do usuário
     @PostMapping("/validar-login")
-    public ResponseEntity<ValidaLoginUsuarioResponse> validarLogin(@RequestParam String login,
+    public ResponseEntity<ValidaLoginUsuarioResponse> validarLogin(@RequestParam String login, //TODO - Alterar para RequestBody
                                                                    @RequestParam String senha) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.validarLogin(login, senha));
     }

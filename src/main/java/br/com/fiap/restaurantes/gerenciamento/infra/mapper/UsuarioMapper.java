@@ -23,7 +23,7 @@ public interface UsuarioMapper {
     @Mapping(source = "endereco", target = "endereco")
     @Mapping(source = "tipo", target = "tipoUsuario")
     @Mapping(target = "dataUltimaAlteracao", ignore = true)
-    UsuarioEntity DtoToEntity(UsuarioDTO usuarioDTO);
+    UsuarioEntity dtoToEntity(UsuarioDTO usuarioDTO);
 
     @Mapping(source = "nome", target = "nome")
     @Mapping(source = "email", target = "email")
@@ -31,14 +31,14 @@ public interface UsuarioMapper {
     @Mapping(source = "senha", target = "senha")
     @Mapping(source = "endereco", target = "endereco")
     @Mapping(source = "tipoUsuario", target = "tipo")
-    UsuarioDTO EntityToDTO(UsuarioEntity usuarioEntity);
+    UsuarioDTO entityToDTO(UsuarioEntity usuarioEntity);
 
     @Mapping(source = "nome", target = "nome")
     @Mapping(source = "email", target = "email")
     @Mapping(source = "login", target = "login")
     @Mapping(source = "endereco", target = "endereco")
     @Mapping(source = "tipo", target = "tipo")
-    UsuarioDTO AtualizarUsuarioRequestToDto(AtualizarUsuarioRequest request);
+    UsuarioDTO atualizarUsuarioRequestToDto(AtualizarUsuarioRequest request);
 
     @Mapping(source = "nome", target = "nome")
     @Mapping(source = "email", target = "email")
