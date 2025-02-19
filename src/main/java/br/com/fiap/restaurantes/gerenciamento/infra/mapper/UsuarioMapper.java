@@ -1,11 +1,11 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.mapper;
 
-import br.com.fiap.restaurantes.gerenciamento.domain.dto.UsuarioDTO;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
 import br.com.fiap.restaurantes.gerenciamento.domain.model.UsuarioEntity;
-import br.com.fiap.restaurantes.gerenciamento.domain.request.AtualizarUsuarioRequest;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.AtualizarSenhaResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.AtualizarUsuarioResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.ValidaLoginUsuarioResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarUsuarioResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

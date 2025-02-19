@@ -1,4 +1,4 @@
-package br.com.fiap.restaurantes.gerenciamento.domain.request;
+package br.com.fiap.restaurantes.gerenciamento.application.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

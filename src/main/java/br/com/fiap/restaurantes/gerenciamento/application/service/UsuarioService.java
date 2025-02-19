@@ -1,18 +1,18 @@
-package br.com.fiap.restaurantes.gerenciamento.service;
+package br.com.fiap.restaurantes.gerenciamento.application.service;
 
+import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.SenhaIncorretaException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.UsuarioExistException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.UsuarioNaoEncontradoException;
 import br.com.fiap.restaurantes.gerenciamento.infra.mapper.UsuarioMapper;
 import br.com.fiap.restaurantes.gerenciamento.domain.model.UsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.infra.repository.UsuarioRepository;
-import br.com.fiap.restaurantes.gerenciamento.domain.request.AlterarSenhaRequest;
-import br.com.fiap.restaurantes.gerenciamento.domain.dto.UsuarioDTO;
-import br.com.fiap.restaurantes.gerenciamento.domain.request.AtualizarUsuarioRequest;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.AtualizarSenhaResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.AtualizarUsuarioResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.MensagemResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.ValidaLoginUsuarioResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSenhaRequest;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarUsuarioResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.utils.ConstantUtils;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

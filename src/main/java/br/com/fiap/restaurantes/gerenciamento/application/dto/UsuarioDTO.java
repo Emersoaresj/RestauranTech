@@ -1,4 +1,4 @@
-package br.com.fiap.restaurantes.gerenciamento.domain.dto;
+package br.com.fiap.restaurantes.gerenciamento.application.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

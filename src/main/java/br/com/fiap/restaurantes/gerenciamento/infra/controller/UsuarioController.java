@@ -1,13 +1,13 @@
-package br.com.fiap.restaurantes.gerenciamento.controller;
+package br.com.fiap.restaurantes.gerenciamento.infra.controller;
 
-import br.com.fiap.restaurantes.gerenciamento.domain.request.AlterarSenhaRequest;
-import br.com.fiap.restaurantes.gerenciamento.domain.dto.UsuarioDTO;
-import br.com.fiap.restaurantes.gerenciamento.domain.request.AtualizarUsuarioRequest;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.AtualizarSenhaResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.AtualizarUsuarioResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.MensagemResponse;
-import br.com.fiap.restaurantes.gerenciamento.domain.response.ValidaLoginUsuarioResponse;
-import br.com.fiap.restaurantes.gerenciamento.service.UsuarioService;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSenhaRequest;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarUsuarioResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
