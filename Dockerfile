@@ -1,5 +1,5 @@
 # Estágio 1: Build da aplicação (usando JDK)
-FROM maven:3.8.6-openjdk-21-slim AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
 # Definir o diretório de trabalho
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Estágio 2: Execução da aplicação (usando JRE)
-FROM openjdk:21-jre-slim
+FROM openjdk:21-slim
 
 # Definir o diretório de trabalho
 WORKDIR /app
