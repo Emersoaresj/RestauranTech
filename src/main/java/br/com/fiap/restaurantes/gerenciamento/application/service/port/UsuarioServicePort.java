@@ -13,11 +13,11 @@ public interface UsuarioServicePort {
 
     AtualizarUsuarioResponse cadastrarUsuario(UsuarioDTO usuarioDTO);
 
-    AtualizarUsuarioResponse atualizarUsuario(Long id, AtualizarUsuarioRequest request);
+    AtualizarUsuarioResponse atualizarUsuario(Integer id, AtualizarUsuarioRequest request);
 
-    AtualizarSenhaResponse alterarSenha(Long id, AlterarSenhaRequest alterarSenhaRequest);
+    AtualizarSenhaResponse alterarSenha(Integer id, AlterarSenhaRequest alterarSenhaRequest);
 
     ValidaLoginUsuarioResponse validarLogin(ValidaLoginUsuarioRequest validaLoginUsuarioRequest);
 
-    MensagemResponse deletarUsuario(Long id);
+    MensagemResponse deletarUsuario(Integer id);
 }

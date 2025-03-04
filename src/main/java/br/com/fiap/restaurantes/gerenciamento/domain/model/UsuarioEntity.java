@@ -16,12 +16,17 @@ public class UsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_usuario")
+    private Integer id;
+
     private String nome;
     private String email;
     private String login;
     private String senha;
     private LocalDateTime dataUltimaAlteracao;
     private String endereco;
-    private String tipoUsuario;
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_usuario_id", nullable = false)
+    private TipoUsuarioEntity tipoUsuario;
 }

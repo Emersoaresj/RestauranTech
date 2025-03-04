@@ -28,12 +28,12 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AtualizarUsuarioResponse> atualizarUsuario(@PathVariable Long id, @Valid @RequestBody AtualizarUsuarioRequest request) {
+    public ResponseEntity<AtualizarUsuarioResponse> atualizarUsuario(@PathVariable Integer id, @Valid @RequestBody AtualizarUsuarioRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.atualizarUsuario(id, request));
     }
 
     @PostMapping("/alterar-senha/{id}")
-    public ResponseEntity<AtualizarSenhaResponse> alterarSenha(@PathVariable Long id, @RequestBody AlterarSenhaRequest alterarSenhaRequest) {
+    public ResponseEntity<AtualizarSenhaResponse> alterarSenha(@PathVariable Integer id, @RequestBody AlterarSenhaRequest alterarSenhaRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.alterarSenha(id, alterarSenhaRequest));
     }
 
@@ -43,7 +43,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MensagemResponse> deletarUsuario(@PathVariable Long id) {
+    public ResponseEntity<MensagemResponse> deletarUsuario(@PathVariable Integer id) {
         MensagemResponse mensagemResponse = usuarioService.deletarUsuario(id);
         return ResponseEntity.status(HttpStatus.OK).body(mensagemResponse);
     }

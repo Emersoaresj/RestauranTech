@@ -1,18 +1,24 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.exception;
 
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice // Controlador de exceções
-public class GlobalExceptionApi extends ResponseEntityExceptionHandler {
+public class GlobalExceptionApi {
 
     // Constantes para as chaves de resposta
     private static final String TIMESTAMP = "timestamp";
@@ -20,6 +26,21 @@ public class GlobalExceptionApi extends ResponseEntityExceptionHandler {
     private static final String ERROR = "error";
     private static final String MENSAGEM = "mensagem";
     private static final String PATH = "path";
+
+
+    @ExceptionHandler(TipoUsuarioExistException.class)
+    public ResponseEntity<Map<String, Object>> handlerTipoUsuarioExistente(TipoUsuarioExistException tipoUsuarioExistException) {
+        Map<String, Object> response = new HashMap<>();
+        response.put(MENSAGEM, tipoUsuarioExistException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(TipoUsuarioNotExistException.class)
+    public ResponseEntity<Map<String, Object>> handlerTipoUsuarioNaoExistente(TipoUsuarioNotExistException tipoUsuarioNotExistException) {
+        Map<String, Object> response = new HashMap<>();
+        response.put(MENSAGEM, tipoUsuarioNotExistException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(ErroInternoException.class)
     public ResponseEntity<Map<String, Object>> handlerErroBancoDeDados(ErroInternoException erroInternoException, WebRequest request) {
@@ -51,6 +72,23 @@ public class GlobalExceptionApi extends ResponseEntityExceptionHandler {
     public ResponseEntity<Map<String, Object>> handlerSenhaIncorreta(SenhaIncorretaException senhaIncorretaException) {
         Map<String, Object> response = new HashMap<>();
         response.put(MENSAGEM, senhaIncorretaException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex, WebRequest request) {
+        Map<String, Object> response = new HashMap<>();
+
+        // Extrair mensagens de erro das validações
+        List<String> errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(fieldError -> fieldError.getDefaultMessage())
+                .collect(Collectors.toList());
+
+        response.put(STATUS, HttpStatus.BAD_REQUEST.value());
+        response.put("errors", errors);
+
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

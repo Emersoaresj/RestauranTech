@@ -1,6 +1,7 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.mapper;
 
 import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.UsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.domain.model.UsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
@@ -21,9 +22,9 @@ public interface UsuarioMapper {
     @Mapping(source = "login", target = "login")
     @Mapping(source = "senha", target = "senha")
     @Mapping(source = "endereco", target = "endereco")
-    @Mapping(source = "tipo", target = "tipoUsuario")
     @Mapping(target = "dataUltimaAlteracao", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "tipoUsuario", ignore = true)  // Não mapeamos o tipo diretamente, isso será feito na service
     UsuarioEntity dtoToEntity(UsuarioDTO usuarioDTO);
 
     @Mapping(source = "nome", target = "nome")
@@ -31,14 +32,14 @@ public interface UsuarioMapper {
     @Mapping(source = "login", target = "login")
     @Mapping(source = "senha", target = "senha")
     @Mapping(source = "endereco", target = "endereco")
-    @Mapping(source = "tipoUsuario", target = "tipo")
+    @Mapping(target = "tipoUsuario", ignore = true)
     UsuarioDTO entityToDTO(UsuarioEntity usuarioEntity);
 
     @Mapping(source = "nome", target = "nome")
     @Mapping(source = "email", target = "email")
     @Mapping(source = "login", target = "login")
     @Mapping(source = "endereco", target = "endereco")
-    @Mapping(source = "tipo", target = "tipo")
+    @Mapping(source = "tipo", target = "tipoUsuario")
     @Mapping(target = "senha", ignore = true)
     UsuarioDTO atualizarUsuarioRequestToDto(AtualizarUsuarioRequest request);
 
@@ -46,7 +47,7 @@ public interface UsuarioMapper {
     @Mapping(source = "email", target = "email")
     @Mapping(source = "login", target = "login")
     @Mapping(source = "endereco", target = "endereco")
-    @Mapping(source = "tipoUsuario", target = "tipo")
+    @Mapping(source = "tipoUsuario.nomeTipo", target = "tipo.nomeTipo")
     @Mapping(target = "mensagem", ignore = true)
     AtualizarUsuarioResponse entityToAtualizarUsuarioResponse(UsuarioEntity entity);
 
@@ -59,4 +60,6 @@ public interface UsuarioMapper {
     @Mapping(target = "mensagem", ignore = true)
     ValidaLoginUsuarioResponse entityToValidaLoginUsuario(UsuarioEntity entity);
 
+    @Mapping(target = "mensagem", ignore = true)
+    UsuarioResponse entityToResponse(UsuarioEntity entity);
 }
