@@ -1,6 +1,9 @@
-package br.com.fiap.restaurantes.gerenciamento.application.service;
+package br.com.fiap.restaurantes.gerenciamento.application.service.impl;
 
 import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
+import br.com.fiap.restaurantes.gerenciamento.application.service.port.UsuarioServicePort;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.ErroInternoException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.SenhaIncorretaException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.UsuarioExistException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.UsuarioNaoEncontradoException;
@@ -23,7 +26,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-public class UsuarioService {
+public class UsuarioService implements UsuarioServicePort {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -34,6 +37,7 @@ public class UsuarioService {
     }
 
     @Transactional
+    @Override
     public AtualizarUsuarioResponse cadastrarUsuario(UsuarioDTO usuarioDTO) {
 
         if (usuarioRepository.existsByLogin(usuarioDTO.getLogin())) {
@@ -50,11 +54,12 @@ public class UsuarioService {
             return response;
         } catch (Exception e) {
             log.error("Erro ao cadastrar usuário", e);
-            throw new RuntimeException("Erro ao cadastrar usuário"); //TODO - Criar exceção personalizada
+            throw new ErroInternoException("Erro ao cadastrar usuário: " + e.getMessage());
         }
     }
 
     @Transactional
+    @Override
     public AtualizarUsuarioResponse atualizarUsuario(Long id, AtualizarUsuarioRequest request) {
 
         UsuarioEntity usuarioEntity = usuarioRepository.findById(id)
@@ -73,61 +78,60 @@ public class UsuarioService {
             response.setMensagem(ConstantUtils.USUARIO_ATUALIZADO);
 
             return response;
-        } catch (UsuarioNaoEncontradoException e) {
-            throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao atualizar usuário"); //TODO - Criar exceção personalizada
+            log.error("Erro ao atualizar usuário", e);
+            throw new ErroInternoException("Erro ao atualizar usuário: " + e.getMessage());
         }
     }
 
     @Transactional
+    @Override
     public AtualizarSenhaResponse alterarSenha(Long id, AlterarSenhaRequest alterarSenhaRequest) {
 
         UsuarioEntity usuarioEntity = usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNaoEncontradoException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
 
+        if (!usuarioEntity.getSenha().equals(alterarSenhaRequest.getSenhaAntiga())) {
+            throw new SenhaIncorretaException(ConstantUtils.ERRO_SENHA);
+        }
+
         try {
-            if (usuarioEntity.getSenha().equals(alterarSenhaRequest.getSenhaAntiga())) {
-                usuarioEntity.setSenha(alterarSenhaRequest.getNovaSenha());
-                usuarioEntity.setDataUltimaAlteracao(LocalDateTime.now());
-                usuarioRepository.save(usuarioEntity);
+            usuarioEntity.setSenha(alterarSenhaRequest.getNovaSenha());
+            usuarioEntity.setDataUltimaAlteracao(LocalDateTime.now());
+            usuarioRepository.save(usuarioEntity);
 
-                AtualizarSenhaResponse response = UsuarioMapper.INSTANCE.entityToAtualizarSenhaResponse(usuarioEntity);
-                response.setMensagem(ConstantUtils.SENHA_ALTERADA);
+            AtualizarSenhaResponse response = UsuarioMapper.INSTANCE.entityToAtualizarSenhaResponse(usuarioEntity);
+            response.setMensagem(ConstantUtils.SENHA_ALTERADA);
+            return response;
 
-                return response;
-            } else {
-                throw new SenhaIncorretaException(ConstantUtils.ERRO_SENHA);
-            }
-        } catch (UsuarioNaoEncontradoException | SenhaIncorretaException e) {
-            throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao alterar senha"); //TODO - Criar exceção personalizada
+            log.error("Erro ao alterar senha do usuário", e);
+            throw new ErroInternoException("Erro ao alterar senha: " + e.getMessage());
         }
     }
 
-
-    public ValidaLoginUsuarioResponse validarLogin(String login, String senha) {
-        UsuarioEntity usuarioEntity = usuarioRepository.findByLogin(login)
+    @Override
+    public ValidaLoginUsuarioResponse validarLogin(ValidaLoginUsuarioRequest validaLoginUsuarioRequest) {
+        UsuarioEntity usuarioEntity = usuarioRepository.findByLogin(validaLoginUsuarioRequest.getLogin())
                 .orElseThrow(() -> new UsuarioNaoEncontradoException(ConstantUtils.ERRO_LOGIN));
 
-        try{
-            if (!usuarioEntity.getSenha().equals(senha)) {
-                throw new SenhaIncorretaException(ConstantUtils.ERRO_SENHA);
-            }
+        if (!usuarioEntity.getSenha().equals(validaLoginUsuarioRequest.getSenha())) {
+            throw new SenhaIncorretaException(ConstantUtils.ERRO_SENHA);
+        }
 
+        try {
             ValidaLoginUsuarioResponse response = UsuarioMapper.INSTANCE.entityToValidaLoginUsuario(usuarioEntity);
             response.setMensagem(ConstantUtils.LOGIN_VALIDADO);
             return response;
-        } catch (UsuarioNaoEncontradoException | SenhaIncorretaException e) {
-            throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao validar login"); //TODO - Criar exceção personalizada
+            log.error("Erro ao validar login do usuário", e);
+            throw new ErroInternoException("Erro ao validar login: " + e.getMessage());
         }
     }
 
 
     @Transactional
+    @Override
     public MensagemResponse deletarUsuario(Long id) {
 
         UsuarioEntity entity = usuarioRepository.findById(id)
@@ -136,10 +140,9 @@ public class UsuarioService {
         try {
             usuarioRepository.delete(entity);
             return new MensagemResponse(ConstantUtils.USUARIO_DELETADO);
-        } catch (UsuarioNaoEncontradoException e) {
-            throw e;
-        } catch (Exception e){
-            throw new RuntimeException("Erro ao deletar usuário"); //TODO - Criar exceção personalizada
+        } catch (Exception e) {
+            log.error("Erro ao cadastrar usuário", e);
+            throw new ErroInternoException("Erro ao deletar usuário: " + e.getMessage());
         }
     }
 

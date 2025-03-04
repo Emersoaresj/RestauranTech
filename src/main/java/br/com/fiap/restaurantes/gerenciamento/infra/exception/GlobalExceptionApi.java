@@ -21,13 +21,13 @@ public class GlobalExceptionApi extends ResponseEntityExceptionHandler {
     private static final String MENSAGEM = "mensagem";
     private static final String PATH = "path";
 
-    @ExceptionHandler(ErroBancoDeDadosException.class)
-    public ResponseEntity<Map<String, Object>> handlerErroBancoDeDados(ErroBancoDeDadosException erroBancoDeDadosException, WebRequest request) {
+    @ExceptionHandler(ErroInternoException.class)
+    public ResponseEntity<Map<String, Object>> handlerErroBancoDeDados(ErroInternoException erroInternoException, WebRequest request) {
         Map<String, Object> response = new HashMap<>();
         response.put(TIMESTAMP, LocalDateTime.now());
         response.put(STATUS, HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.put(ERROR, "Erro ao salvar no Banco de Dados.");
-        response.put(MENSAGEM, erroBancoDeDadosException.getMessage());
+        response.put(MENSAGEM, erroInternoException.getMessage());
         response.put(PATH, request.getDescription(false));
 
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);

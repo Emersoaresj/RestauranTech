@@ -1,13 +1,14 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.controller;
 
-import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSenhaRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSenhaRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
-import br.com.fiap.restaurantes.gerenciamento.application.service.UsuarioService;
+import br.com.fiap.restaurantes.gerenciamento.application.service.port.UsuarioServicePort;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,31 +20,26 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioServicePort usuarioService;
 
-    // Cadastrar novo usuário
     @PostMapping("/cadastrar")
     public ResponseEntity<AtualizarUsuarioResponse> cadastrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuarioDTO));
     }
 
-    // Atualizar dados do usuário
     @PutMapping("/{id}")
     public ResponseEntity<AtualizarUsuarioResponse> atualizarUsuario(@PathVariable Long id, @Valid @RequestBody AtualizarUsuarioRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.atualizarUsuario(id, request));
     }
 
-    // Alterar senha do usuário
     @PostMapping("/alterar-senha/{id}")
     public ResponseEntity<AtualizarSenhaResponse> alterarSenha(@PathVariable Long id, @RequestBody AlterarSenhaRequest alterarSenhaRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.alterarSenha(id, alterarSenhaRequest));
     }
 
-    // Validar login do usuário
     @PostMapping("/validar-login")
-    public ResponseEntity<ValidaLoginUsuarioResponse> validarLogin(@RequestParam String login, //TODO - Alterar para RequestBody
-                                                                   @RequestParam String senha) {
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.validarLogin(login, senha));
+    public ResponseEntity<ValidaLoginUsuarioResponse> validarLogin(@Valid @RequestBody ValidaLoginUsuarioRequest validaLoginUsuarioRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.validarLogin(validaLoginUsuarioRequest));
     }
 
     @DeleteMapping("/{id}")

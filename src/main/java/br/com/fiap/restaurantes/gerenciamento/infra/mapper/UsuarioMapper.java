@@ -23,6 +23,7 @@ public interface UsuarioMapper {
     @Mapping(source = "endereco", target = "endereco")
     @Mapping(source = "tipo", target = "tipoUsuario")
     @Mapping(target = "dataUltimaAlteracao", ignore = true)
+    @Mapping(target = "id", ignore = true)
     UsuarioEntity dtoToEntity(UsuarioDTO usuarioDTO);
 
     @Mapping(source = "nome", target = "nome")
@@ -38,6 +39,7 @@ public interface UsuarioMapper {
     @Mapping(source = "login", target = "login")
     @Mapping(source = "endereco", target = "endereco")
     @Mapping(source = "tipo", target = "tipo")
+    @Mapping(target = "senha", ignore = true)
     UsuarioDTO atualizarUsuarioRequestToDto(AtualizarUsuarioRequest request);
 
     @Mapping(source = "nome", target = "nome")
@@ -45,13 +47,16 @@ public interface UsuarioMapper {
     @Mapping(source = "login", target = "login")
     @Mapping(source = "endereco", target = "endereco")
     @Mapping(source = "tipoUsuario", target = "tipo")
+    @Mapping(target = "mensagem", ignore = true)
     AtualizarUsuarioResponse entityToAtualizarUsuarioResponse(UsuarioEntity entity);
 
     //source é o nome do atributo da entidade e target é o nome do atributo do response
     @Mapping(source = "senha", target = "novaSenha")
+    @Mapping(target = "mensagem", ignore = true)
     AtualizarSenhaResponse entityToAtualizarSenhaResponse(UsuarioEntity entity);
 
     @Mapping(source = "login", target = "login")
+    @Mapping(target = "mensagem", ignore = true)
     ValidaLoginUsuarioResponse entityToValidaLoginUsuario(UsuarioEntity entity);
 
 }
