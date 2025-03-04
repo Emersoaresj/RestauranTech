@@ -56,11 +56,24 @@ Criar um sistema robusto que permita a todos os restaurantes gerenciar suas oper
 
 ## Estrutura do Projeto
 
-- **src/main/java/br/com/fiap/restaurantesgerenciamento**:
-  - **controller**: Contém os endpoints da API.
-  - **model**: Contém as entidades de dados.
-  - **service**: Lógica de negócios.
-  - **repository**: Repositórios JPA para acesso ao banco de dados.
+- **src/main/java/br/com/fiap/restaurantes.gerenciamento**:
+  - **application**:
+    - **dto**:
+      - **request**: Contém as classes de requisição.
+      - **response**: Contém as classes de resposta.
+      - `UsuarioDTO`: Objeto de transferência de dados do usuário.
+    - **service**:
+      - **impl**: Implementação dos serviços.
+      - **port**: Interfaces dos serviços.
+  - **domain**:
+    - **model**: Contém as entidades de dados, como `UsuarioEntity`.
+  - **infra**:
+    - **controller**: Contém os endpoints da API.
+    - **exception**: Tratamento de exceções.
+    - **mapper**: Classes responsáveis pelo mapeamento de entidades, como `UsuarioMapper`.
+    - **repository**: Repositórios JPA para acesso ao banco de dados.
+  - **utils**: Classes utilitárias do projeto.
+
 
 - **docker-compose.yml**: Arquivo para inicialização do PostgreSQL e da aplicação.
 - **application.properties**: Configurações da aplicação (Banco de dados, segurança, etc.).
