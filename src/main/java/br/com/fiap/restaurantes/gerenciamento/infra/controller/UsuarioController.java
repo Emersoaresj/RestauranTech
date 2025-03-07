@@ -5,7 +5,6 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSen
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
-import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.UsuarioServicePort;
@@ -23,12 +22,12 @@ public class UsuarioController {
     private UsuarioServicePort usuarioService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<AtualizarUsuarioResponse> cadastrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<MensagemResponse> cadastrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.cadastrarUsuario(usuarioDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AtualizarUsuarioResponse> atualizarUsuario(@PathVariable Integer id, @Valid @RequestBody AtualizarUsuarioRequest request) {
+    public ResponseEntity<MensagemResponse> atualizarUsuario(@PathVariable Integer id, @Valid @RequestBody AtualizarUsuarioRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.atualizarUsuario(id, request));
     }
 

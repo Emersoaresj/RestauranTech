@@ -5,7 +5,6 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSen
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
-import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.TipoUsuarioServicePort;
@@ -25,23 +24,17 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-public class UsuarioService implements UsuarioServicePort {
+public class UsuarioServiceImpl implements UsuarioServicePort {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
     @Autowired
     private TipoUsuarioServicePort tipoUsuarioService;
 
-
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
-
     @Transactional
     @Override
-    public AtualizarUsuarioResponse cadastrarUsuario(UsuarioDTO usuarioDTO) {
+    public MensagemResponse cadastrarUsuario(UsuarioDTO usuarioDTO) {
 
         if (usuarioRepository.existsByLogin(usuarioDTO.getLogin())) {
             throw new UsuarioExistException(ConstantUtils.LOGIN_CADASTRADO);
@@ -54,9 +47,9 @@ public class UsuarioService implements UsuarioServicePort {
             entity.setDataUltimaAlteracao(LocalDateTime.now());
             usuarioRepository.save(entity);
 
-            AtualizarUsuarioResponse response = UsuarioMapper.INSTANCE.entityToAtualizarUsuarioResponse(entity);
-            response.setMensagem(ConstantUtils.USUARIO_CADASTRADO);
-            return response;
+            return new MensagemResponse(ConstantUtils.USUARIO_CADASTRADO);
+        } catch (TipoUsuarioNotExistException e) {
+            throw e;
         } catch (Exception e) {
             log.error("Erro ao cadastrar usuário", e);
             throw new ErroInternoException("Erro ao cadastrar usuário: " + e.getMessage());
@@ -65,24 +58,24 @@ public class UsuarioService implements UsuarioServicePort {
 
     @Transactional
     @Override
-    public AtualizarUsuarioResponse atualizarUsuario(Integer id, AtualizarUsuarioRequest request) {
+    public MensagemResponse atualizarUsuario(Integer id, AtualizarUsuarioRequest request) {
 
         UsuarioEntity usuarioEntity = usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNaoEncontradoException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
 
         try {
-            usuarioEntity.setNome(request.getNome());
-            usuarioEntity.setEmail(request.getEmail());
-            usuarioEntity.setLogin(request.getLogin());
-            usuarioEntity.setEndereco(request.getEndereco());
-//            usuarioEntity.setTipoUsuario(request.getTipo());
+            TipoUsuarioEntity tipoUsuario = tipoUsuarioService.buscarTipoUsuarioPorNome(request.getTipoUsuario().getNomeTipo());
+
+            UsuarioMapper.INSTANCE.atualizarUsuarioRequestToEntity(request, usuarioEntity);
+
+            usuarioEntity.setSenha(usuarioEntity.getSenha());
+            usuarioEntity.setTipoUsuario(tipoUsuario);
             usuarioEntity.setDataUltimaAlteracao(LocalDateTime.now());
             usuarioRepository.save(usuarioEntity);
 
-            AtualizarUsuarioResponse response = UsuarioMapper.INSTANCE.entityToAtualizarUsuarioResponse(usuarioEntity);
-            response.setMensagem(ConstantUtils.USUARIO_ATUALIZADO);
-
-            return response;
+            return new MensagemResponse(ConstantUtils.USUARIO_ATUALIZADO);
+        } catch (TipoUsuarioNotExistException e) {
+            throw e;
         } catch (Exception e) {
             log.error("Erro ao atualizar usuário", e);
             throw new ErroInternoException("Erro ao atualizar usuário: " + e.getMessage());

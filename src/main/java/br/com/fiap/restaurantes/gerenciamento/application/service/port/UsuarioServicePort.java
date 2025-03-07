@@ -5,15 +5,14 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSen
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
-import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 
 public interface UsuarioServicePort {
 
-    AtualizarUsuarioResponse cadastrarUsuario(UsuarioDTO usuarioDTO);
+    MensagemResponse cadastrarUsuario(UsuarioDTO usuarioDTO);
 
-    AtualizarUsuarioResponse atualizarUsuario(Integer id, AtualizarUsuarioRequest request);
+    MensagemResponse atualizarUsuario(Integer id, AtualizarUsuarioRequest request);
 
     AtualizarSenhaResponse alterarSenha(Integer id, AlterarSenhaRequest alterarSenhaRequest);
 

@@ -28,13 +28,6 @@ public class GlobalExceptionApi {
     private static final String PATH = "path";
 
 
-    @ExceptionHandler(TipoUsuarioExistException.class)
-    public ResponseEntity<Map<String, Object>> handlerTipoUsuarioExistente(TipoUsuarioExistException tipoUsuarioExistException) {
-        Map<String, Object> response = new HashMap<>();
-        response.put(MENSAGEM, tipoUsuarioExistException.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
-    }
-
     @ExceptionHandler(TipoUsuarioNotExistException.class)
     public ResponseEntity<Map<String, Object>> handlerTipoUsuarioNaoExistente(TipoUsuarioNotExistException tipoUsuarioNotExistException) {
         Map<String, Object> response = new HashMap<>();
@@ -86,9 +79,9 @@ public class GlobalExceptionApi {
                 .map(fieldError -> fieldError.getDefaultMessage())
                 .collect(Collectors.toList());
 
-        response.put(STATUS, HttpStatus.BAD_REQUEST.value());
         response.put("errors", errors);
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
 }
