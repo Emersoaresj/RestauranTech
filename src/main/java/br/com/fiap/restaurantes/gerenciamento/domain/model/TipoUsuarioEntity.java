@@ -18,6 +18,6 @@ public class TipoUsuarioEntity {
     @Column(name = "id_tipo_usuario")
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "nome_tipo", nullable = false, unique = true)
     private String nomeTipo;
 }

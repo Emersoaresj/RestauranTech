@@ -1,15 +1,17 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.exception;
 
-import jakarta.validation.ConstraintViolationException;
-import org.springframework.http.HttpHeaders;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.restaurante.RestauranteExistsException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.restaurante.RestauranteNotExistsException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.tipoUsuario.TipoUsuarioNotExistException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.SenhaIncorretaException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.UsuarioExistException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.UsuarioNotExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -47,10 +49,10 @@ public class GlobalExceptionApi {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UsuarioNaoEncontradoException.class)
-    public ResponseEntity<Map<String, Object>> handlerUsuarioNaoEncontrado(UsuarioNaoEncontradoException usuarioNaoEncontradoException) {
+    @ExceptionHandler(UsuarioNotExistsException.class)
+    public ResponseEntity<Map<String, Object>> handlerUsuarioNaoEncontrado(UsuarioNotExistsException usuarioNotExistsException) {
         Map<String, Object> response = new HashMap<>();
-        response.put(MENSAGEM, usuarioNaoEncontradoException.getMessage());
+        response.put(MENSAGEM, usuarioNotExistsException.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
@@ -66,6 +68,20 @@ public class GlobalExceptionApi {
         Map<String, Object> response = new HashMap<>();
         response.put(MENSAGEM, senhaIncorretaException.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RestauranteExistsException.class)
+    public ResponseEntity<Map<String, Object>> handlerRestauranteExistente(RestauranteExistsException restauranteExistsException) {
+        Map<String, Object> response = new HashMap<>();
+        response.put(MENSAGEM, restauranteExistsException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(RestauranteNotExistsException.class)
+    public ResponseEntity<Map<String, Object>> handlerRestauranteNaoEncontrado(RestauranteNotExistsException restauranteNotExistsException) {
+        Map<String, Object> response = new HashMap<>();
+        response.put(MENSAGEM, restauranteNotExistsException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

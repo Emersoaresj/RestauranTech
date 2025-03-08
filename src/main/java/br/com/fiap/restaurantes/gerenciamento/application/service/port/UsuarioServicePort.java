@@ -6,7 +6,10 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarU
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.UsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
+
+import java.util.List;
 
 public interface UsuarioServicePort {
 
@@ -19,4 +22,6 @@ public interface UsuarioServicePort {
     ValidaLoginUsuarioResponse validarLogin(ValidaLoginUsuarioRequest validaLoginUsuarioRequest);
 
     MensagemResponse deletarUsuario(Integer id);
+
+    List<UsuarioResponse> listarUsuarios();
 }

@@ -1,7 +1,9 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.mapper;
 
+import br.com.fiap.restaurantes.gerenciamento.application.dto.TipoUsuarioDTO;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.UsuarioResponse;
+import br.com.fiap.restaurantes.gerenciamento.domain.model.TipoUsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.domain.model.UsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
@@ -9,7 +11,10 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLog
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper
 public interface UsuarioMapper {
@@ -52,6 +57,13 @@ public interface UsuarioMapper {
     @Mapping(target = "mensagem", ignore = true)
     ValidaLoginUsuarioResponse entityToValidaLoginUsuario(UsuarioEntity entity);
 
-    @Mapping(target = "mensagem", ignore = true)
-    UsuarioResponse entityToResponse(UsuarioEntity entity);
+    @Mapping(source = "tipoUsuario", target = "tipoUsuario", qualifiedByName = "mapTipoUsuarioToDTO")
+    List<UsuarioResponse> entityToResponse(List<UsuarioEntity> entity);
+
+    @Named("mapTipoUsuarioToDTO")
+    default TipoUsuarioDTO mapTipoUsuarioToDTO(TipoUsuarioEntity tipoUsuario) {
+        TipoUsuarioDTO dto = new TipoUsuarioDTO();
+        dto.setNomeTipo(tipoUsuario.getNomeTipo());
+        return dto;
+    }
 }

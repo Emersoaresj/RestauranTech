@@ -15,5 +15,4 @@ public class UsuarioResponse {
     private String email;
     private String login;
     private TipoUsuarioDTO tipoUsuario;
-    private String mensagem;
 }

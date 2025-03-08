@@ -6,6 +6,7 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarU
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.UsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.UsuarioServicePort;
 import jakarta.validation.Valid;
@@ -14,12 +15,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
     private UsuarioServicePort usuarioService;
+
+
+    @GetMapping
+    public ResponseEntity<List<UsuarioResponse>> listarUsuarios() {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuarios());
+    }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<MensagemResponse> cadastrarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {

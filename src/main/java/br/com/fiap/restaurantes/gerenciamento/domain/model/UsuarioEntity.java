@@ -23,7 +23,10 @@ public class UsuarioEntity {
     private String email;
     private String login;
     private String senha;
+
+    @Column(name = "data_ultima_alteracao")
     private LocalDateTime dataUltimaAlteracao;
+
     private String endereco;
 
     @ManyToOne

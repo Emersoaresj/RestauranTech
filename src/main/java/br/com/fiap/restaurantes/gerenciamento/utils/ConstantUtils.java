@@ -20,6 +20,9 @@ public class ConstantUtils {
     public static final String TIPO_USUARIO_EXISTENTE = "Tipo de usuário já cadastrado!";
     public static final String TIPO_USUARIO_INVALIDO = "Tipo de usuário inválido!";
     public static final String TIPO_USUARIO_NAO_ENCONTRADO = "Tipo de usuário não encontrado!";
+    public static final String DONO_NAO_ENCONTRADO = "Dono de restaurante não encontrado!";
+    public static final String RESTAURANTE_EXISTENTE = "Restaurante já cadastrado!";
+    public static final String RESTAURANTE_NAO_ENCONTRADO = "Restaurante não encontrado!";
 
 
     //AUX
@@ -40,5 +43,8 @@ public class ConstantUtils {
     public static final String SENHA_ALTERADA = "Senha alterada com sucesso!";
     public static final String LOGIN_VALIDADO = "Login validado!";
     public static final String TIPO_USUARIO_ASSOCIADO = "Tipo de usuário associado com sucesso!";
+    public static final String RESTAURANTE_CADASTRADO = "Restaurante cadastrado com sucesso!";
+    public static final String RESTAURANTE_ATUALIZADO = "Restaurante atualizado com sucesso!";
+    public static final String RESTAURANTE_DELETADO = "Restaurante deletado com sucesso!";
 
 }

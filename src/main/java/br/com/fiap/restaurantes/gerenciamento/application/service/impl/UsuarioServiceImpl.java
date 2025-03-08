@@ -6,12 +6,17 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AtualizarU
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.ValidaLoginUsuarioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.AtualizarSenhaResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
+import br.com.fiap.restaurantes.gerenciamento.application.dto.response.UsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.TipoUsuarioServicePort;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.UsuarioServicePort;
 import br.com.fiap.restaurantes.gerenciamento.domain.model.TipoUsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.domain.model.UsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.*;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.tipoUsuario.TipoUsuarioNotExistException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.SenhaIncorretaException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.UsuarioExistException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.UsuarioNotExistsException;
 import br.com.fiap.restaurantes.gerenciamento.infra.mapper.UsuarioMapper;
 import br.com.fiap.restaurantes.gerenciamento.infra.repository.UsuarioRepository;
 import br.com.fiap.restaurantes.gerenciamento.utils.ConstantUtils;
@@ -21,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -31,6 +37,15 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
 
     @Autowired
     private TipoUsuarioServicePort tipoUsuarioService;
+
+
+
+    @Override
+    public List<UsuarioResponse> listarUsuarios() {
+        List<UsuarioEntity> entity = usuarioRepository.findAll();
+        return UsuarioMapper.INSTANCE.entityToResponse(entity);
+    }
+
 
     @Transactional
     @Override
@@ -61,7 +76,7 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
     public MensagemResponse atualizarUsuario(Integer id, AtualizarUsuarioRequest request) {
 
         UsuarioEntity usuarioEntity = usuarioRepository.findById(id)
-                .orElseThrow(() -> new UsuarioNaoEncontradoException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
+                .orElseThrow(() -> new UsuarioNotExistsException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
 
         try {
             TipoUsuarioEntity tipoUsuario = tipoUsuarioService.buscarTipoUsuarioPorNome(request.getTipoUsuario().getNomeTipo());
@@ -87,7 +102,7 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
     public AtualizarSenhaResponse alterarSenha(Integer id, AlterarSenhaRequest alterarSenhaRequest) {
 
         UsuarioEntity usuarioEntity = usuarioRepository.findById(id)
-                .orElseThrow(() -> new UsuarioNaoEncontradoException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
+                .orElseThrow(() -> new UsuarioNotExistsException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
 
         if (!usuarioEntity.getSenha().equals(alterarSenhaRequest.getSenhaAntiga())) {
             throw new SenhaIncorretaException(ConstantUtils.ERRO_SENHA);
@@ -111,7 +126,7 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
     @Override
     public ValidaLoginUsuarioResponse validarLogin(ValidaLoginUsuarioRequest validaLoginUsuarioRequest) {
         UsuarioEntity usuarioEntity = usuarioRepository.findByLogin(validaLoginUsuarioRequest.getLogin())
-                .orElseThrow(() -> new UsuarioNaoEncontradoException(ConstantUtils.ERRO_LOGIN));
+                .orElseThrow(() -> new UsuarioNotExistsException(ConstantUtils.ERRO_LOGIN));
 
         if (!usuarioEntity.getSenha().equals(validaLoginUsuarioRequest.getSenha())) {
             throw new SenhaIncorretaException(ConstantUtils.ERRO_SENHA);
@@ -133,7 +148,7 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
     public MensagemResponse deletarUsuario(Integer id) {
 
         UsuarioEntity entity = usuarioRepository.findById(id)
-                .orElseThrow(() -> new UsuarioNaoEncontradoException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
+                .orElseThrow(() -> new UsuarioNotExistsException(ConstantUtils.USUARIO_NAO_ENCONTRADO));
 
         try {
             usuarioRepository.delete(entity);
