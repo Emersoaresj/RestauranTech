@@ -1,4 +1,4 @@
-package br.com.fiap.restaurantes.gerenciamento.domain.model;
+package br.com.fiap.restaurantes.gerenciamento.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

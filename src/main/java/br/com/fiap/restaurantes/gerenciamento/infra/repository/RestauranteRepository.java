@@ -1,6 +1,6 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.repository;
 
-import br.com.fiap.restaurantes.gerenciamento.domain.model.RestauranteEntity;
+import br.com.fiap.restaurantes.gerenciamento.domain.RestauranteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

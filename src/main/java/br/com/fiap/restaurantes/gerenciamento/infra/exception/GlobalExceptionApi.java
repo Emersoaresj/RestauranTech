@@ -1,5 +1,7 @@
 package br.com.fiap.restaurantes.gerenciamento.infra.exception;
 
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.cardapio.CardapioExistsException;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.cardapio.CardapioNotExistsException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.restaurante.RestauranteExistsException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.restaurante.RestauranteNotExistsException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.tipoUsuario.TipoUsuarioNotExistException;
@@ -81,6 +83,20 @@ public class GlobalExceptionApi {
     public ResponseEntity<Map<String, Object>> handlerRestauranteNaoEncontrado(RestauranteNotExistsException restauranteNotExistsException) {
         Map<String, Object> response = new HashMap<>();
         response.put(MENSAGEM, restauranteNotExistsException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CardapioExistsException.class)
+    public ResponseEntity<Map<String, Object>> handlerCardapioExistente(CardapioExistsException cardapioExistsException) {
+        Map<String, Object> response = new HashMap<>();
+        response.put(MENSAGEM, cardapioExistsException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(CardapioNotExistsException.class)
+    public ResponseEntity<Map<String, Object>> handlerCardapioNaoEncontrado(CardapioNotExistsException cardapioNotExistsException) {
+        Map<String, Object> response = new HashMap<>();
+        response.put(MENSAGEM, cardapioNotExistsException.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 

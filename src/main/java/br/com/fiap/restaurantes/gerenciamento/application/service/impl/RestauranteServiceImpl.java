@@ -4,7 +4,7 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.request.Restaurant
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.MensagemResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.RestauranteResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.RestauranteServicePort;
-import br.com.fiap.restaurantes.gerenciamento.domain.model.RestauranteEntity;
+import br.com.fiap.restaurantes.gerenciamento.domain.RestauranteEntity;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.ErroInternoException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.restaurante.RestauranteExistsException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.restaurante.RestauranteNotExistsException;

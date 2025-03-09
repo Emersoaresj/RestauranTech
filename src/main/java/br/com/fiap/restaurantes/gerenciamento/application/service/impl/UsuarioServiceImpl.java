@@ -10,8 +10,8 @@ import br.com.fiap.restaurantes.gerenciamento.application.dto.response.UsuarioRe
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.ValidaLoginUsuarioResponse;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.TipoUsuarioServicePort;
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.UsuarioServicePort;
-import br.com.fiap.restaurantes.gerenciamento.domain.model.TipoUsuarioEntity;
-import br.com.fiap.restaurantes.gerenciamento.domain.model.UsuarioEntity;
+import br.com.fiap.restaurantes.gerenciamento.domain.TipoUsuarioEntity;
+import br.com.fiap.restaurantes.gerenciamento.domain.UsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.*;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.tipoUsuario.TipoUsuarioNotExistException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.SenhaIncorretaException;
