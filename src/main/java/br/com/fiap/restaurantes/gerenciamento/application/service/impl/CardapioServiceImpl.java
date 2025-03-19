@@ -11,6 +11,7 @@ import br.com.fiap.restaurantes.gerenciamento.infra.exception.cardapio.CardapioN
 import br.com.fiap.restaurantes.gerenciamento.infra.mapper.CardapioMapper;
 import br.com.fiap.restaurantes.gerenciamento.infra.repository.CardapioRepository;
 import br.com.fiap.restaurantes.gerenciamento.utils.ConstantUtils;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class CardapioServiceImpl implements CardapioServicePort {
     @Autowired
     private CardapioRepository repository;
 
+    @Transactional
     @Override
     public MensagemResponse cadastrarCardapio(CardapioRequest request) {
 
@@ -41,6 +43,7 @@ public class CardapioServiceImpl implements CardapioServicePort {
         }
     }
 
+    @Transactional
     @Override
     public MensagemResponse atualizarCardapio(CardapioRequest request, Integer idCardapio) {
         repository.findById(idCardapio)
@@ -63,6 +66,7 @@ public class CardapioServiceImpl implements CardapioServicePort {
         return CardapioMapper.INSTANCE.entityToResponse(cardapios);
     }
 
+    @Transactional
     @Override
     public MensagemResponse deletarCardapio(Integer idCardapio) {
         repository.findById(idCardapio)

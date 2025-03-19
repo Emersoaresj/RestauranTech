@@ -78,6 +78,7 @@ public class RestauranteServiceImpl implements RestauranteServicePort {
         return RestauranteMapper.INSTANCE.entityToResponse(entity);
     }
 
+    @Transactional
     @Override
     public MensagemResponse deletarRestaurante(Integer idRestaurante) {
         RestauranteEntity entity = repository.findById(idRestaurante)
