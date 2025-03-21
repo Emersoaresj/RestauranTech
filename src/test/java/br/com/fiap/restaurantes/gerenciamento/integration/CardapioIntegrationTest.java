@@ -51,7 +51,6 @@ public class CardapioIntegrationTest {
         request.setPreco(25.90);
         request.setDisponibilidadeConsumo("LOCAL");
 
-        // Realiza a chamada ao endpoint
         mockMvc.perform(post("/cardapio/cadastrar")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(request)))
@@ -68,7 +67,6 @@ public class CardapioIntegrationTest {
     @Test
     @DisplayName("Cadastrar cardápio com nome existente")
     void cadastrarCardapioComNomeExistente() throws Exception {
-        // Insere um cardápio no banco de dados
         CardapioEntity existingCardapio = new CardapioEntity();
         existingCardapio.setNome("Pizza");
         existingCardapio.setDescricao("Uma pizza já existente");
@@ -76,14 +74,12 @@ public class CardapioIntegrationTest {
         existingCardapio.setDisponibilidadeConsumo("LOCAL");
         cardapioRepository.save(existingCardapio);
 
-        // Configuração do objeto de requisição
         CardapioRequest request = new CardapioRequest();
         request.setNome("Pizza");
         request.setDescricao("Uma deliciosa pizza italiana");
         request.setPreco(25.90);
         request.setDisponibilidadeConsumo("LOCAL");
 
-        // Realiza a chamada ao endpoint e espera um erro de conflito
         mockMvc.perform(post("/cardapio/cadastrar")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(request)))
@@ -167,7 +163,6 @@ public class CardapioIntegrationTest {
         cardapio2.setDisponibilidadeConsumo("LIVRE");
         cardapioRepository.save(cardapio2);
 
-        // Realiza a chamada ao endpoint GET /cardapio
         mockMvc.perform(get("/cardapio")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
