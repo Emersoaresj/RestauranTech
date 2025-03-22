@@ -6,6 +6,7 @@ import br.com.fiap.restaurantes.gerenciamento.infra.exception.cardapio.CardapioN
 import br.com.fiap.restaurantes.gerenciamento.infra.repository.CardapioRepository;
 import br.com.fiap.restaurantes.gerenciamento.utils.ConstantUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 public class CardapioIntegrationTest {
 
     @Autowired

@@ -12,7 +12,7 @@ import br.com.fiap.restaurantes.gerenciamento.application.service.port.TipoUsuar
 import br.com.fiap.restaurantes.gerenciamento.application.service.port.UsuarioServicePort;
 import br.com.fiap.restaurantes.gerenciamento.domain.TipoUsuarioEntity;
 import br.com.fiap.restaurantes.gerenciamento.domain.UsuarioEntity;
-import br.com.fiap.restaurantes.gerenciamento.infra.exception.*;
+import br.com.fiap.restaurantes.gerenciamento.infra.exception.ErroInternoException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.tipoUsuario.TipoUsuarioNotExistException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.SenhaIncorretaException;
 import br.com.fiap.restaurantes.gerenciamento.infra.exception.usuario.UsuarioExistException;
@@ -37,7 +37,6 @@ public class UsuarioServiceImpl implements UsuarioServicePort {
 
     @Autowired
     private TipoUsuarioServicePort tipoUsuarioService;
-
 
 
     @Override

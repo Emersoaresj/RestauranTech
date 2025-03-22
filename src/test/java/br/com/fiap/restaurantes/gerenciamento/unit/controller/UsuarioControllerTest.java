@@ -1,4 +1,4 @@
-package br.com.fiap.restaurantes.gerenciamento.controller;
+package br.com.fiap.restaurantes.gerenciamento.unit.controller;
 
 import br.com.fiap.restaurantes.gerenciamento.application.dto.UsuarioDTO;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.AlterarSenhaRequest;

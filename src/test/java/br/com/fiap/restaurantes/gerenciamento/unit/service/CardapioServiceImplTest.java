@@ -1,4 +1,4 @@
-package br.com.fiap.restaurantes.gerenciamento.service;
+package br.com.fiap.restaurantes.gerenciamento.unit.service;
 
 import br.com.fiap.restaurantes.gerenciamento.application.dto.request.CardapioRequest;
 import br.com.fiap.restaurantes.gerenciamento.application.dto.response.CardapioResponse;

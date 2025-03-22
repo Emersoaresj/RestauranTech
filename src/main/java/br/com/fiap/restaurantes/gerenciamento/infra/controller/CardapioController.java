@@ -21,23 +21,23 @@ public class CardapioController {
 
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<MensagemResponse> cadastrarCardapio(@Valid @RequestBody CardapioRequest request){
+    public ResponseEntity<MensagemResponse> cadastrarCardapio(@Valid @RequestBody CardapioRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(cardapioService.cadastrarCardapio(request));
     }
 
     @PutMapping("/atualizar/{idCardapio}")
     public ResponseEntity<MensagemResponse> atualizarCardapio(@Valid @RequestBody CardapioRequest request,
-                                                                 @PathVariable Integer idCardapio){
+                                                              @PathVariable Integer idCardapio) {
         return ResponseEntity.status(HttpStatus.OK).body(cardapioService.atualizarCardapio(request, idCardapio));
     }
 
     @GetMapping
-    public ResponseEntity<List<CardapioResponse>> listarCardapios(){
+    public ResponseEntity<List<CardapioResponse>> listarCardapios() {
         return ResponseEntity.status(HttpStatus.OK).body(cardapioService.buscarCardapios());
     }
 
     @DeleteMapping("/deletar/{idCardapio}")
-    public ResponseEntity<MensagemResponse> deletarCardapio(@PathVariable Integer idCardapio){
+    public ResponseEntity<MensagemResponse> deletarCardapio(@PathVariable Integer idCardapio) {
         return ResponseEntity.status(HttpStatus.OK).body(cardapioService.deletarCardapio(idCardapio));
     }
 }

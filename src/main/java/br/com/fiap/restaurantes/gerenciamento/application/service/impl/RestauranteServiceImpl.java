@@ -37,7 +37,7 @@ public class RestauranteServiceImpl implements RestauranteServicePort {
         usuarioRepository.findById(request.getIdDonoRestaurante())
                 .orElseThrow(() -> new UsuarioNotExistsException(ConstantUtils.DONO_NAO_ENCONTRADO));
 
-        if(repository.existsByNomeRestaurante(request.getNomeRestaurante())){
+        if (repository.existsByNomeRestaurante(request.getNomeRestaurante())) {
             throw new RestauranteExistsException(ConstantUtils.RESTAURANTE_EXISTENTE);
         }
 

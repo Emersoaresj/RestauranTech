@@ -29,7 +29,7 @@ public class CardapioServiceImpl implements CardapioServicePort {
     @Override
     public MensagemResponse cadastrarCardapio(CardapioRequest request) {
 
-        if(repository.existsByNome(request.getNome())){
+        if (repository.existsByNome(request.getNome())) {
             throw new CardapioExistsException(ConstantUtils.CARDAPIO_EXISTENTE);
         }
 
@@ -49,12 +49,12 @@ public class CardapioServiceImpl implements CardapioServicePort {
         repository.findById(idCardapio)
                 .orElseThrow(() -> new CardapioNotExistsException(ConstantUtils.CARDAPIO_NAO_ENCONTRADO));
 
-        try{
+        try {
             CardapioEntity entity = CardapioMapper.INSTANCE.requestToEntity(request);
             entity.setId(idCardapio);
             repository.save(entity);
             return new MensagemResponse(ConstantUtils.CARDAPIO_ATUALIZADO);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Erro ao atualizar cardápio", e);
             throw new ErroInternoException("Erro ao atualizar cardápio: " + e.getMessage());
         }
@@ -74,7 +74,7 @@ public class CardapioServiceImpl implements CardapioServicePort {
         try {
             repository.deleteById(idCardapio);
             return new MensagemResponse(ConstantUtils.CARDAPIO_DELETADO);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Erro ao deletar cardápio", e);
             throw new ErroInternoException("Erro ao deletar cardápio: " + e.getMessage());
         }

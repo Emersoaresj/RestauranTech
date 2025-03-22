@@ -10,5 +10,6 @@ public class UsuarioResponse {
     private String nome;
     private String email;
     private String login;
+    private String endereco;
     private TipoUsuarioDTO tipoUsuario;
 }
