@@ -43,7 +43,7 @@ Criar um sistema robusto que permita a todos os restaurantes gerenciar suas oper
 4. O banco de dados estará disponível em `localhost:5432` com o usuário e senha configurados no `docker-compose.yml`.
 
 5. **Testando a API com o Postman**:
-   - Leia a documentação a partir do link abaixo:
+   - Leia a documentação a partir do link:
 [Link para a documentação da Collection do Postman](https://github.com/Emersoaresj/collections-PosTech/blob/main/README.md)
    - Você pode importar a coleção do Postman a partir do link abaixo para testar todos os endpoints da API.
 [Link para a Collection do Postman](https://github.com/Emersoaresj/collections-PosTech/blob/main/RestauranTech.postman_collection.json)
