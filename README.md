@@ -48,11 +48,25 @@ Criar um sistema robusto que permita a todos os restaurantes gerenciar suas oper
 
 ### Endpoints Principais
 
-- **POST** `/cadastrar` - Cadastrar um novo usuário.
-- **PUT** `/{id}` - Atualizar dados de um usuário.
-- **POST** `/alterar-senha/{id}` - Alterar a senha de um usuário.
-- **POST** `/validar-login` - Validar o login de um usuário.
-- **DELETE** `/{id}` - Deletar um usuário.
+#### **Usuários**
+- **GET** `/usuarios` - Listar todos os usuários.
+- **POST** `/usuarios/cadastrar` - Cadastrar um novo usuário.
+- **PUT** `/usuarios/{id}` - Atualizar dados de um usuário.
+- **POST** `/usuarios/alterar-senha/{id}` - Alterar a senha de um usuário.
+- **POST** `/usuarios/validar-login` - Validar o login de um usuário.
+- **DELETE** `/usuarios/{id}` - Deletar um usuário.
+
+#### **Restaurantes**
+- **GET** `/restaurantes` - Listar todos os restaurantes.
+- **POST** `/restaurantes/cadastrar` - Cadastrar um novo restaurante.
+- **PUT** `/restaurantes/atualizar/{idRestaurante}` - Atualizar os dados de um restaurante.
+- **DELETE** `/restaurantes/deletar/{idRestaurante}` - Deletar um restaurante.
+
+#### **Cardápios**
+- **GET** `/cardapio` - Listar todos os cardápios.
+- **POST** `/cardapio/cadastrar` - Cadastrar um novo cardápio.
+- **PUT** `/cardapio/atualizar/{idCardapio}` - Atualizar os dados de um cardápio.
+- **DELETE** `/cardapio/deletar/{idCardapio}` - Deletar um cardápio.
 
 ## Estrutura do Projeto
 
@@ -61,22 +75,30 @@ Criar um sistema robusto que permita a todos os restaurantes gerenciar suas oper
     - **dto**:
       - **request**: Contém as classes de requisição.
       - **response**: Contém as classes de resposta.
+      - `RestauranteDTO`: Objeto de transferência de dados do restaurante.
+      - `TipoUsuarioDTO`: Objeto de transferência de dados do tipo de usuário.
       - `UsuarioDTO`: Objeto de transferência de dados do usuário.
     - **service**:
       - **impl**: Implementação dos serviços.
       - **port**: Interfaces dos serviços.
   - **domain**:
-    - **model**: Contém as entidades de dados, como `UsuarioEntity`.
+    - **Contém as entidades de dados**:
+       - `CardapioEntity`
+       - `RestauranteEntity`
+       - `TipoUsuarioEntity`
+       - `UsuarioEntity`
   - **infra**:
     - **controller**: Contém os endpoints da API.
     - **exception**: Tratamento de exceções.
-    - **mapper**: Classes responsáveis pelo mapeamento de entidades, como `UsuarioMapper`.
+    - **mapper**: Classes responsáveis pelo mapeamento de entidades.
     - **repository**: Repositórios JPA para acesso ao banco de dados.
   - **utils**: Classes utilitárias do projeto.
 
 
 - **docker-compose.yml**: Arquivo para inicialização do PostgreSQL e da aplicação.
 - **application.properties**: Configurações da aplicação (Banco de dados, segurança, etc.).
+- **init.sql**: Arquivo para inicialização de um comando SQL no PostgreSQL.
+- **Dockerfile**: Arquivo da imagem da aplicação.
 
 
 ## Contato
