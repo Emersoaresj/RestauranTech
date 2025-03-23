@@ -4,9 +4,9 @@ services:
     image: postgres:16
     container_name: postgres-restaurantes
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: emerson01
-      POSTGRES_DB: restaurantesdb
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
