@@ -71,7 +71,7 @@ Criar um sistema robusto que permita a todos os restaurantes gerenciar suas oper
 ## Estrutura do Projeto
 
 - **src/main/java/br/com/fiap/restaurantes.gerenciamento**:
-  - **application**:
+  - **APPLICATION**:
     - **dto**:
       - **request**: Contém as classes de requisição.
       - **response**: Contém as classes de resposta.
@@ -81,18 +81,19 @@ Criar um sistema robusto que permita a todos os restaurantes gerenciar suas oper
     - **service**:
       - **impl**: Implementação dos serviços.
       - **port**: Interfaces dos serviços.
-  - **domain**:
+  - **DOMAIN**:
     - **Contém as entidades de dados**:
        - `CardapioEntity`
        - `RestauranteEntity`
        - `TipoUsuarioEntity`
        - `UsuarioEntity`
-  - **infra**:
+  - **INFRA**:
     - **controller**: Contém os endpoints da API.
     - **exception**: Tratamento de exceções.
     - **mapper**: Classes responsáveis pelo mapeamento de entidades.
     - **repository**: Repositórios JPA para acesso ao banco de dados.
-  - **utils**: Classes utilitárias do projeto.
+      
+  - **Utils**: Classes utilitárias do projeto.
 
 
 - **docker-compose.yml**: Arquivo para inicialização do PostgreSQL e da aplicação.
@@ -106,3 +107,5 @@ Criar um sistema robusto que permita a todos os restaurantes gerenciar suas oper
 Se você tiver dúvidas ou sugestões, pode entrar em contato:
 
 - **Emerson Soares** - [emersonsoares269@icloud.com](mailto:emersonsoares269@icloud.com)
+- **LinkedIn** - [Emerson Soares](https://www.linkedin.com/in/emerson-soares-9440a11b2/)
+
